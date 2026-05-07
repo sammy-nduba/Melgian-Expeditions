@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-forest: #2F4F3A;
+  --color-olive: #556B2F;
+  --color-savannah: #C8A96B;
+  --color-ivory: #F5F1E8;
+  --color-bronze: #8B5A2B;
+  --color-charcoal: #3B3128;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+}
+
+::selection {
+  background: var(--color-savannah);
+  color: var(--color-charcoal);
+}
+
+.container-premium {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+.premium-card {
+  @apply rounded-premium bg-white shadow-premium overflow-hidden;
+}
