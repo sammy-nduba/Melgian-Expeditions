@@ -21,6 +21,7 @@ const tours: TourPackage[] = [
       max: 12,
     },
     difficulty: "easy",
+    packageClass: "SIGNATURE_ELITE_SAFARIS",
     availability: "available",
     highlights: [
       "Luxury lodge accommodation",
@@ -49,6 +50,100 @@ const tours: TourPackage[] = [
       },
     ],
   },
+  {
+    id: "2",
+    slug: "maasai-mara-explorer",
+    title: "Maasai Mara Explorer",
+    subtitle: "Discover the heart of Kenya's wildlife",
+    description:
+      "A classic safari experience offering great value and incredible animal sightings in the Maasai Mara.",
+    destination: "Kenya",
+    durationDays: 5,
+    priceFrom: 2100,
+    currency: "USD",
+    coverImage: "/images/hero/safari-hero.jpg",
+    gallery: [],
+    rating: 4.7,
+    reviewCount: 95,
+    groupSize: {
+      min: 4,
+      max: 14,
+    },
+    difficulty: "moderate",
+    packageClass: "EXPLORER_SAFARIS",
+    availability: "limited",
+    highlights: [
+      "Comfortable tented camps",
+      "Wildebeest migration viewing (seasonal)",
+      "Cultural Maasai village visit",
+    ],
+    included: [
+      "Accommodation",
+      "Meals",
+      "Transport",
+      "Park fees",
+    ],
+    excluded: ["International flights", "Travel insurance"],
+    itinerary: [
+      {
+        day: 1,
+        title: "Arrival in Nairobi",
+        description: "Welcome to Kenya and transfer to your hotel.",
+      },
+      {
+        day: 2,
+        title: "To the Mara",
+        description: "Drive to the Maasai Mara and enjoy an afternoon game drive.",
+      },
+    ],
+  },
+  {
+    id: "3",
+    slug: "kilimanjaro-adventure-trail",
+    title: "Kilimanjaro Adventure Trail",
+    subtitle: "Trek to the roof of Africa",
+    description:
+      "A thrilling and challenging climb up Mount Kilimanjaro via the scenic Machame route.",
+    destination: "Tanzania",
+    durationDays: 8,
+    priceFrom: 3500,
+    currency: "USD",
+    coverImage: "/images/tours/serengeti.jpg",
+    gallery: [],
+    rating: 4.8,
+    reviewCount: 210,
+    groupSize: {
+      min: 6,
+      max: 15,
+    },
+    difficulty: "adventurous",
+    packageClass: "ADVENTURE_TRAILS",
+    availability: "available",
+    highlights: [
+      "Summit Mount Kilimanjaro",
+      "Scenic Machame route",
+      "Expert mountain guides and porters",
+    ],
+    included: [
+      "Camping accommodation",
+      "All meals on the mountain",
+      "Park fees and rescue fees",
+      "Guides and porters",
+    ],
+    excluded: ["International flights", "Climbing gear rental", "Tips"],
+    itinerary: [
+      {
+        day: 1,
+        title: "Arrival in Moshi",
+        description: "Pre-climb briefing and equipment check.",
+      },
+      {
+        day: 2,
+        title: "Machame Gate to Machame Camp",
+        description: "Begin the trek through the rainforest.",
+      },
+    ],
+  }
 ];
 
 export class ToursAPIService {

@@ -97,6 +97,10 @@ export default async function TourDetailPage({ params }: TourDetailPageProps) {
                   ? "Limited Spots"
                   : "Sold Out"}
               </span>
+
+              <span className="rounded-full bg-forest px-4 py-2 font-semibold text-ivory">
+                {tour.packageClass.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+              </span>
             </div>
           </div>
         </div>

@@ -22,12 +22,17 @@ export function TourCard({ tour }: TourCardProps) {
             className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
 
-          <div className="absolute left-4 top-4 rounded-full bg-ivory px-4 py-2 text-xs font-semibold text-forest">
-            {tour.availability === "available"
-              ? "Available"
-              : tour.availability === "limited"
-              ? "Limited Spots"
-              : "Sold Out"}
+          <div className="absolute left-4 top-4 flex flex-col gap-2">
+            <div className="w-fit rounded-full bg-ivory px-4 py-2 text-xs font-semibold text-forest">
+              {tour.availability === "available"
+                ? "Available"
+                : tour.availability === "limited"
+                ? "Limited Spots"
+                : "Sold Out"}
+            </div>
+            <div className="w-fit rounded-full bg-savannah px-4 py-2 text-xs font-semibold text-charcoal">
+              {tour.packageClass.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
+            </div>
           </div>
         </div>
       </Link>

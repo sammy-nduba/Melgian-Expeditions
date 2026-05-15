@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, Phone, X } from "lucide-react";
+import { Menu, ShoppingCart, X } from "lucide-react";
 import { CTAButton } from "../components/common/CTAButton";
 
 const navItems = [
@@ -46,11 +46,11 @@ export function Navbar() {
 
         <div className="hidden items-center gap-3 lg:flex">
           <Link
-            href="https://wa.me/1234567890"
+            href="/cart"
             className="flex items-center gap-2 text-sm font-semibold text-forest"
           >
-            <Phone size={16} />
-            WhatsApp
+            <ShoppingCart size={16} />
+            Cart
           </Link>
 
           <CTAButton href="/booking">Plan Your Trip</CTAButton>
@@ -85,11 +85,11 @@ export function Navbar() {
               </CTAButton>
 
               <CTAButton
-                href="https://wa.me/1234567890"
+                href="/cart"
                 variant="outline"
                 className="w-full"
               >
-                WhatsApp Us
+                View Cart
               </CTAButton>
             </div>
           </nav>

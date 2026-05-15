@@ -13,6 +13,7 @@ export function ToursExplorer({ tours }: ToursExplorerProps) {
   const [search, setSearch] = useState("");
   const [destination, setDestination] = useState("all");
   const [duration, setDuration] = useState("all");
+  const [packageClass, setPackageClass] = useState("all");
   const [sort, setSort] = useState("recommended");
 
   const destinations = useMemo(() => {
@@ -53,6 +54,10 @@ export function ToursExplorer({ tours }: ToursExplorerProps) {
       }
     }
 
+    if (packageClass !== "all") {
+      result = result.filter((tour) => tour.packageClass === packageClass);
+    }
+
     if (sort === "price-low") {
       result.sort((a, b) => a.priceFrom - b.priceFrom);
     }
@@ -70,7 +75,7 @@ export function ToursExplorer({ tours }: ToursExplorerProps) {
     }
 
     return result;
-  }, [tours, search, destination, duration, sort]);
+  }, [tours, search, destination, duration, packageClass, sort]);
 
   return (
     <div className="grid gap-10 lg:grid-cols-[280px_1fr]">
@@ -107,6 +112,20 @@ export function ToursExplorer({ tours }: ToursExplorerProps) {
               <option value="short">1 - 3 days</option>
               <option value="medium">4 - 7 days</option>
               <option value="long">8+ days</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="text-sm font-semibold">Package Class</label>
+            <select
+              value={packageClass}
+              onChange={(event) => setPackageClass(event.target.value)}
+              className="mt-2 w-full rounded-xl border border-charcoal/15 bg-white px-4 py-3"
+            >
+              <option value="all">All Packages</option>
+              <option value="ADVENTURE_TRAILS">Adventure Trails</option>
+              <option value="EXPLORER_SAFARIS">Explorer Safaris</option>
+              <option value="SIGNATURE_ELITE_SAFARIS">Signature Elite Safaris</option>
             </select>
           </div>
         </div>

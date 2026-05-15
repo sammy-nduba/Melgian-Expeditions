@@ -101,26 +101,37 @@ export default async function HomePage() {
         <div className="container-premium grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-savannah">
-              Why Travel With Us
+              Wildlife Conservation
             </p>
 
             <h2 className="mt-3 font-heading text-4xl font-bold md:text-5xl">
-              Designed for Safety, Comfort, and Authentic Adventure
+              Protecting Africa&apos;s Natural Heritage
             </h2>
+
+            <p className="mt-6 text-lg leading-8 text-ivory/80">
+              We believe in giving back to the wild. A portion of every safari booked with us goes directly to local conservation initiatives. You can also join us in protecting endangered species and supporting local communities by making a direct contribution.
+            </p>
+
+            <div className="mt-8">
+              <CTAButton href="/donate" variant="secondary">
+                Make a Contribution
+              </CTAButton>
+            </div>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
             {[
-              "Luxury lodges and camps",
-              "Expert local guides",
-              "Tailor-made itineraries",
-              "Trusted booking support",
+              { title: "Anti-Poaching", desc: "Funding local ranger patrols and essential field equipment." },
+              { title: "Habitat Rescue", desc: "Restoring and protecting critical wildlife ecosystems." },
+              { title: "Community Ed.", desc: "Empowering locals through dedicated education programs." },
+              { title: "Wildlife Rehab", desc: "Supporting the rescue and care of injured animals." },
             ].map((item) => (
               <div
-                key={item}
-                className="rounded-2xl border border-ivory/15 bg-ivory/10 p-6"
+                key={item.title}
+                className="rounded-2xl border border-ivory/15 bg-ivory/10 p-6 transition-colors hover:bg-ivory/20"
               >
-                <h3 className="font-heading text-xl font-semibold">{item}</h3>
+                <h3 className="font-heading text-xl font-semibold text-savannah">{item.title}</h3>
+                <p className="mt-2 text-sm text-ivory/70 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
