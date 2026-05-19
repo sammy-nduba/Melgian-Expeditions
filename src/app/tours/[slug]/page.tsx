@@ -9,9 +9,9 @@ import { TourSchema } from "@/presentation/components/common/TourSchema";
 import type { Metadata } from "next";
 
 type TourDetailPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 const tourRepository = new TourRepositoryImpl(new ToursAPIService());
@@ -19,7 +19,8 @@ const tourRepository = new TourRepositoryImpl(new ToursAPIService());
 export async function generateMetadata({
   params,
 }: TourDetailPageProps): Promise<Metadata> {
-  const tour = await tourRepository.getTourBySlug(params.slug);
+  const { slug } = await params;
+  const tour = await tourRepository.getTourBySlug(slug);
 
   if (!tour) {
     return {
@@ -39,7 +40,8 @@ export async function generateMetadata({
 }
 
 export default async function TourDetailPage({ params }: TourDetailPageProps) {
-  const tour = await tourRepository.getTourBySlug(params.slug);
+  const { slug } = await params;
+  const tour = await tourRepository.getTourBySlug(slug);
 
   if (!tour) {
     notFound();

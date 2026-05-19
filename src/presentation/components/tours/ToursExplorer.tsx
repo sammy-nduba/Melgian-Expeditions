@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { TourPackage } from "@/domain/entities/TourPackage";
 import { TourCard } from "./TourCard";
 import { SearchBar } from "../common/SearchBar";
@@ -9,11 +10,22 @@ type ToursExplorerProps = {
   tours: TourPackage[];
 };
 
-export function ToursExplorer({ tours }: ToursExplorerProps) {
+export function ToursExplorer(props: ToursExplorerProps) {
+  return (
+    <Suspense fallback={<div className="text-center py-12 text-charcoal/70">Loading tours...</div>}>
+      <ToursExplorerContent {...props} />
+    </Suspense>
+  );
+}
+
+function ToursExplorerContent({ tours }: ToursExplorerProps) {
+  const searchParams = useSearchParams();
+  const initialClass = searchParams.get("class") || "all";
+
   const [search, setSearch] = useState("");
   const [destination, setDestination] = useState("all");
   const [duration, setDuration] = useState("all");
-  const [packageClass, setPackageClass] = useState("all");
+  const [packageClass, setPackageClass] = useState(initialClass);
   const [sort, setSort] = useState("recommended");
 
   const destinations = useMemo(() => {

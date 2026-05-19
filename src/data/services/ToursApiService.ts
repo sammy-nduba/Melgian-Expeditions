@@ -1,171 +1,77 @@
 import { TourPackage } from "@/domain/entities/TourPackage";
+import { apiClient } from "@/core/api/apiClient";
 
-const tours: TourPackage[] = [
-  {
-    id: "1",
-    slug: "serengeti-luxury-safari",
-    title: "Serengeti Luxury Safari",
-    subtitle: "A premium wildlife journey through Tanzania",
-    description:
-      "Experience the Serengeti with expert guides, luxury lodges, and unforgettable wildlife encounters.",
-    destination: "Tanzania",
-    durationDays: 7,
-    priceFrom: 4200,
-    currency: "USD",
-    coverImage: "/images/tours/serengeti.jpg",
-    gallery: [],
-    rating: 4.9,
-    reviewCount: 128,
+function mapBackendTourToTourPackage(tour: any): TourPackage {
+  return {
+    id: tour.id,
+    slug: tour.slug,
+    title: tour.title,
+    subtitle: tour.subtitle || undefined,
+    description: tour.description,
+    destination: tour.destinationName,
+    durationDays: tour.durationDays,
+    priceFrom: typeof tour.priceFrom === "string" ? parseFloat(tour.priceFrom) : Number(tour.priceFrom),
+    currency: tour.currency,
+    coverImage: tour.coverImage,
+    gallery: tour.gallery || [],
+    rating: typeof tour.rating === "string" ? parseFloat(tour.rating) : Number(tour.rating),
+    reviewCount: tour.reviewCount,
     groupSize: {
-      min: 2,
-      max: 12,
+      min: tour.minGroupSize,
+      max: tour.maxGroupSize,
     },
-    difficulty: "easy",
-    packageClass: "SIGNATURE_ELITE_SAFARIS",
-    availability: "available",
-    highlights: [
-      "Luxury lodge accommodation",
-      "Big Five wildlife viewing",
-      "Private safari vehicle",
-      "Expert local guides",
-    ],
-    included: [
-      "Accommodation",
-      "Meals",
-      "Airport transfers",
-      "Park fees",
-      "Professional guide",
-    ],
-    excluded: ["International flights", "Travel insurance", "Personal expenses"],
-    itinerary: [
-      {
-        day: 1,
-        title: "Arrival in Arusha",
-        description: "Meet your guide and settle into your premium lodge.",
-      },
-      {
-        day: 2,
-        title: "Transfer to Serengeti",
-        description: "Begin your safari adventure across the plains.",
-      },
-    ],
-  },
-  {
-    id: "2",
-    slug: "maasai-mara-explorer",
-    title: "Maasai Mara Explorer",
-    subtitle: "Discover the heart of Kenya's wildlife",
-    description:
-      "A classic safari experience offering great value and incredible animal sightings in the Maasai Mara.",
-    destination: "Kenya",
-    durationDays: 5,
-    priceFrom: 2100,
-    currency: "USD",
-    coverImage: "/images/hero/safari-hero.jpg",
-    gallery: [],
-    rating: 4.7,
-    reviewCount: 95,
-    groupSize: {
-      min: 4,
-      max: 14,
-    },
-    difficulty: "moderate",
-    packageClass: "EXPLORER_SAFARIS",
-    availability: "limited",
-    highlights: [
-      "Comfortable tented camps",
-      "Wildebeest migration viewing (seasonal)",
-      "Cultural Maasai village visit",
-    ],
-    included: [
-      "Accommodation",
-      "Meals",
-      "Transport",
-      "Park fees",
-    ],
-    excluded: ["International flights", "Travel insurance"],
-    itinerary: [
-      {
-        day: 1,
-        title: "Arrival in Nairobi",
-        description: "Welcome to Kenya and transfer to your hotel.",
-      },
-      {
-        day: 2,
-        title: "To the Mara",
-        description: "Drive to the Maasai Mara and enjoy an afternoon game drive.",
-      },
-    ],
-  },
-  {
-    id: "3",
-    slug: "kilimanjaro-adventure-trail",
-    title: "Kilimanjaro Adventure Trail",
-    subtitle: "Trek to the roof of Africa",
-    description:
-      "A thrilling and challenging climb up Mount Kilimanjaro via the scenic Machame route.",
-    destination: "Tanzania",
-    durationDays: 8,
-    priceFrom: 3500,
-    currency: "USD",
-    coverImage: "/images/tours/serengeti.jpg",
-    gallery: [],
-    rating: 4.8,
-    reviewCount: 210,
-    groupSize: {
-      min: 6,
-      max: 15,
-    },
-    difficulty: "adventurous",
-    packageClass: "ADVENTURE_TRAILS",
-    availability: "available",
-    highlights: [
-      "Summit Mount Kilimanjaro",
-      "Scenic Machame route",
-      "Expert mountain guides and porters",
-    ],
-    included: [
-      "Camping accommodation",
-      "All meals on the mountain",
-      "Park fees and rescue fees",
-      "Guides and porters",
-    ],
-    excluded: ["International flights", "Climbing gear rental", "Tips"],
-    itinerary: [
-      {
-        day: 1,
-        title: "Arrival in Moshi",
-        description: "Pre-climb briefing and equipment check.",
-      },
-      {
-        day: 2,
-        title: "Machame Gate to Machame Camp",
-        description: "Begin the trek through the rainforest.",
-      },
-    ],
-  }
-];
+    difficulty: tour.difficulty.toLowerCase() as any,
+    packageClass: tour.packageClass,
+    availability: tour.availability.toLowerCase() as any,
+    highlights: tour.highlights || [],
+    included: tour.included || [],
+    excluded: tour.excluded || [],
+    itinerary: (tour.itinerary || []).map((day: any) => ({
+      day: day.day,
+      title: day.title,
+      description: day.description,
+    })),
+  };
+}
 
 export class ToursAPIService {
   async getFeaturedTours(): Promise<TourPackage[]> {
-    return tours.slice(0, 3);
+    try {
+      const data = await apiClient<any[]>("/tours?featured=true");
+      return (data || []).map(mapBackendTourToTourPackage);
+    } catch (error) {
+      console.error("Failed to fetch featured tours:", error);
+      return [];
+    }
   }
 
   async getAllTours(): Promise<TourPackage[]> {
-    return tours;
+    try {
+      const data = await apiClient<any[]>("/tours");
+      return (data || []).map(mapBackendTourToTourPackage);
+    } catch (error) {
+      console.error("Failed to fetch all tours:", error);
+      return [];
+    }
   }
 
   async getTourBySlug(slug: string): Promise<TourPackage | null> {
-    return tours.find((tour) => tour.slug === slug) ?? null;
+    try {
+      const tour = await apiClient<any>(`/tours/${slug}`);
+      return tour ? mapBackendTourToTourPackage(tour) : null;
+    } catch (error) {
+      console.error(`Failed to fetch tour by slug: ${slug}`, error);
+      return null;
+    }
   }
 
   async searchTours(query: string): Promise<TourPackage[]> {
-    const normalizedQuery = query.toLowerCase();
-
-    return tours.filter(
-      (tour) =>
-        tour.title.toLowerCase().includes(normalizedQuery) ||
-        tour.destination.toLowerCase().includes(normalizedQuery)
-    );
+    try {
+      const data = await apiClient<any[]>(`/tours?q=${encodeURIComponent(query)}`);
+      return (data || []).map(mapBackendTourToTourPackage);
+    } catch (error) {
+      console.error(`Failed to search tours with query: ${query}`, error);
+      return [];
+    }
   }
 }

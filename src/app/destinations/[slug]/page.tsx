@@ -7,9 +7,9 @@ import { DestinationRepositoryImpl } from "@/data/repositories/DestinationReposi
 import { CTAButton } from "@/presentation/components/common/CTAButton";
 
 type DestinationDetailPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 const destinationRepository = new DestinationRepositoryImpl(
@@ -19,8 +19,9 @@ const destinationRepository = new DestinationRepositoryImpl(
 export async function generateMetadata({
   params,
 }: DestinationDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
   const destination = await destinationRepository.getDestinationBySlug(
-    params.slug
+    slug
   );
 
   if (!destination) {
@@ -43,8 +44,9 @@ export async function generateMetadata({
 export default async function DestinationDetailPage({
   params,
 }: DestinationDetailPageProps) {
+  const { slug } = await params;
   const destination = await destinationRepository.getDestinationBySlug(
-    params.slug
+    slug
   );
 
   if (!destination) {

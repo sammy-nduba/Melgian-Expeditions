@@ -1,81 +1,51 @@
 import { Destination } from "@/domain/entities/Destination";
+import { apiClient } from "@/core/api/apiClient";
 
-const destinations: Destination[] = [
-  {
-    id: "1",
-    slug: "serengeti-national-park",
-    name: "Serengeti National Park",
-    country: "Tanzania",
-    description:
-      "A legendary safari destination known for endless plains, big cats, and the Great Migration.",
-    longDescription:
-      "The Serengeti is one of Africa’s most iconic wildlife regions, offering exceptional year-round safari experiences, luxury camps, and breathtaking landscapes.",
-    coverImage: "/images/destinations/serengeti.jpg",
-    gallery: [],
-    bestSeason: "June to October",
-    climate: "Warm days, cooler evenings, seasonal rains",
-    highlights: [
-      "Great Migration",
-      "Big cat sightings",
-      "Luxury tented camps",
-      "Expansive savannah landscapes",
-    ],
-    relatedTourSlugs: ["serengeti-luxury-safari"],
-  },
-  {
-    id: "2",
-    slug: "masai-mara",
-    name: "Masai Mara",
-    country: "Kenya",
-    description:
-      "Kenya’s premier wildlife reserve, famous for dramatic predator sightings and open plains.",
-    longDescription:
-      "The Masai Mara delivers one of the richest wildlife-viewing experiences in Africa, with luxury lodges, Maasai culture, and exceptional photographic opportunities.",
-    coverImage: "/images/destinations/masai-mara.jpg",
-    gallery: [],
-    bestSeason: "July to October",
-    climate: "Mild temperatures with seasonal rains",
-    highlights: [
-      "The Great Migration crossings",
-      "Excellent predator viewing",
-      "Maasai cultural experiences",
-      "Luxury safari lodges",
-    ],
-    relatedTourSlugs: [],
-  },
-  {
-    id: "3",
-    slug: "okavango-delta",
-    name: "Okavango Delta",
-    country: "Botswana",
-    description:
-      "A pristine wetland wilderness offering water-based safaris and secluded luxury camps.",
-    longDescription:
-      "The Okavango Delta is ideal for travelers seeking exclusivity, untouched nature, mokoro excursions, and high-end safari camps.",
-    coverImage: "/images/destinations/okavango-delta.jpg",
-    gallery: [],
-    bestSeason: "May to September",
-    climate: "Dry winter months with excellent wildlife viewing",
-    highlights: [
-      "Mokoro canoe safaris",
-      "Remote luxury camps",
-      "Birdwatching",
-      "Elephants and wetlands",
-    ],
-    relatedTourSlugs: [],
-  },
-];
+function mapBackendDestinationToDestination(dest: any): Destination {
+  return {
+    id: dest.id,
+    slug: dest.slug,
+    name: dest.name,
+    country: dest.country,
+    description: dest.description,
+    longDescription: dest.longDescription || undefined,
+    coverImage: dest.coverImage,
+    gallery: dest.gallery || [],
+    bestSeason: dest.bestSeason,
+    climate: dest.climate || undefined,
+    highlights: dest.highlights || [],
+    relatedTourSlugs: [], // The backend does not store this mapping directly; default to empty
+  };
+}
 
 export class DestinationAPIService {
   async getAllDestinations(): Promise<Destination[]> {
-    return destinations;
+    try {
+      const data = await apiClient<any[]>("/destinations");
+      return (data || []).map(mapBackendDestinationToDestination);
+    } catch (error) {
+      console.error("Failed to fetch all destinations from backend:", error);
+      return [];
+    }
   }
 
   async getPopularDestinations(): Promise<Destination[]> {
-    return destinations.slice(0, 3);
+    try {
+      const data = await apiClient<any[]>("/destinations?popular=true");
+      return (data || []).map(mapBackendDestinationToDestination);
+    } catch (error) {
+      console.error("Failed to fetch popular destinations from backend:", error);
+      return [];
+    }
   }
 
   async getDestinationBySlug(slug: string): Promise<Destination | null> {
-    return destinations.find((destination) => destination.slug === slug) ?? null;
+    try {
+      const destination = await apiClient<any>(`/destinations/${slug}`);
+      return destination ? mapBackendDestinationToDestination(destination) : null;
+    } catch (error) {
+      console.error(`Failed to fetch destination by slug: ${slug} from backend:`, error);
+      return null;
+    }
   }
 }

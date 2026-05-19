@@ -1,5 +1,6 @@
 export interface BookingRequest {
-  tourId: string;
+  tourId?: string;
+  tourSlug?: string;
   fullName: string;
   email: string;
   phone: string;

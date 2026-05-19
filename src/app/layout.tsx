@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/presentation/layouts/Navbar";
-import { Footer } from "@/presentation/layouts/Footer";
-import { NewsletterSignup } from "@/presentation/components/common/NewsletterSignup";
-import { MobileStickyCTA } from "@/presentation/components/common/MobileStickyCTA";
+import { ClientLayout } from "@/presentation/layouts/ClientLayout";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -48,11 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body className="font-body">
-        <Navbar />
-        <main>{children}</main>
-        <NewsletterSignup />
-        <Footer />
-        <MobileStickyCTA />
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

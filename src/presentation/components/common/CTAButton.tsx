@@ -7,6 +7,7 @@ type CTAButtonProps = {
   variant?: "primary" | "secondary" | "outline";
   className?: string;
   type?: "button" | "submit";
+  onClick?: () => void;
 };
 
 export function CTAButton({
@@ -15,6 +16,7 @@ export function CTAButton({
   variant = "primary",
   className,
   type = "button",
+  onClick,
 }: CTAButtonProps) {
   const classes = cn(
     "inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-savannah/70 focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal",
@@ -29,14 +31,14 @@ export function CTAButton({
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} onClick={onClick} className={classes}>
         {children}
       </Link>
     );
   }
 
   return (
-    <button type={type} className={classes}>
+    <button type={type} onClick={onClick} className={classes}>
       {children}
     </button>
   );

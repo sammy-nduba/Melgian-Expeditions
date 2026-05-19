@@ -1,21 +1,17 @@
-import { TourCard } from "@/presentation/components/tours/TourCard";
+import { CategoryCard } from "@/presentation/components/tours/CategoryCard";
+import { CATEGORIES_DATA } from "@/presentation/components/tours/categoryData";
 import { CTAButton } from "@/presentation/components/common/CTAButton";
 import { DestinationCard } from "@/presentation/components/destinations/DestinationCard";
 import { TestimonialCard } from "@/presentation/components/common/TestimonialCard";
 import { BlogCard } from "@/presentation/components/blog/BlogCard";
 import { SectionHeader } from "@/presentation/components/common/SectionHeader";
 import { BookingForm } from "@/presentation/components/booking/BookingForm";
-import { TourRepositoryImpl } from "@/data/repositories/TourRepositoryImpl";
-import { ToursAPIService } from "@/data/services/ToursApiService";
 import { DestinationAPIService } from "@/data/services/DestinationAPIService";
 import { TestimonialsAPIService } from "@/data/services/TestimonialsAPIService";
 import { BlogAPIService } from "@/data/services/BlogAPIService";
 import Image from "next/image";
 
 export default async function HomePage() {
-  const tourRepository = new TourRepositoryImpl(new ToursAPIService());
-  const featuredTours = await tourRepository.getFeaturedTours();
-
   const destinationsService = new DestinationAPIService();
   const featuredDestinations = await destinationsService.getPopularDestinations();
 
@@ -72,26 +68,26 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="section-padding bg-ivory">
+      <section className="section-padding bg-ivory overflow-hidden">
         <div className="container-premium">
           <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-bronze">
-                Curated Adventures
+                Curated Travel Classes
               </p>
               <h2 className="mt-3 font-heading text-4xl font-bold text-charcoal md:text-5xl">
-                Featured Safari Tours
+                Featured Safari Classes
               </h2>
             </div>
 
             <CTAButton href="/tours" variant="outline">
-              View All Tours
+              Explore All Packages
             </CTAButton>
           </div>
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {featuredTours.map((tour) => (
-              <TourCard key={tour.id} tour={tour} />
+            {CATEGORIES_DATA.map((category, index) => (
+              <CategoryCard key={category.id} category={category} index={index} />
             ))}
           </div>
         </div>
