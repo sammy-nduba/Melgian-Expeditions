@@ -2,9 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(req: NextRequest) {
-  // Extract country from Vercel's geo object, or standard edge headers
+  // Extract country from standard edge headers
   let country =
-    req.geo?.country ||
     req.headers.get("x-vercel-ip-country") ||
     req.headers.get("cf-ipcountry");
 

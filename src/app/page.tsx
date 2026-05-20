@@ -11,6 +11,8 @@ import { TestimonialsAPIService } from "@/data/services/TestimonialsAPIService";
 import { BlogAPIService } from "@/data/services/BlogAPIService";
 import Image from "next/image";
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   const destinationsService = new DestinationAPIService();
   const featuredDestinations = await destinationsService.getPopularDestinations();

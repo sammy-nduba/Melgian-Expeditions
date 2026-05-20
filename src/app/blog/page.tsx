@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     "Luxury safari travel guides, destination insights, packing tips, and expert planning advice.",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function BlogPage() {
   const blogRepository = new BlogRepositoryImpl(new BlogAPIService());
   const posts = await blogRepository.getAllPosts();
