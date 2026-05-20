@@ -2,7 +2,7 @@ import { BookingRequest } from "@/domain/entities/Booking";
 import { apiClient } from "@/core/api/apiClient";
 
 export class BookingAPIService {
-  async submitBooking(data: BookingRequest): Promise<void> {
+  async submitBooking(data: BookingRequest): Promise<{ id: string }> {
     const payload = {
       tourSlug: data.tourSlug || (data as any).tourId,
       fullName: data.fullName,
@@ -14,9 +14,11 @@ export class BookingAPIService {
       message: data.message,
     };
 
-    await apiClient<any>("/bookings", {
+    const response = await apiClient<{ booking: { id: string } }>("/bookings", {
       method: "POST",
       body: JSON.stringify(payload),
     });
+
+    return { id: response?.booking?.id ?? "" };
   }
 }

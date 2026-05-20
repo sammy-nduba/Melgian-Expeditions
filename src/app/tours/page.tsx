@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { TourRepositoryImpl } from "@/data/repositories/TourRepositoryImpl";
 import { ToursAPIService } from "@/data/services/ToursApiService";
+import { cookies } from "next/headers";
 import { ToursExplorer } from "@/presentation/components/tours/ToursExplorer";
 
 export const metadata: Metadata = {
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
 
 export default async function ToursPage() {
   const tourRepository = new TourRepositoryImpl(new ToursAPIService());
-  const tours = await tourRepository.getAllTours();
+  const cookieStore = await cookies();
+  const regionCookie = cookieStore.get("user_region")?.value;
+  const tours = await tourRepository.getAllTours(regionCookie);
 
   return (
     <main>

@@ -1,13 +1,14 @@
 "use client";
 
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useSearchParams } from "next/navigation";
-import { useState, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
 import { CTAButton } from "../common/CTAButton";
 import { SubmitBookingRequest } from "@/domain/usecases/SubmitBookingRequest";
 import { BookingRepositoryImpl } from "@/data/repositories/BookingRepositoryImpl";
-import { CheckCircle2, AlertCircle } from "lucide-react";
+import { AlertCircle } from "lucide-react";
 
 const bookingSchema = z.object({
   fullName: z.string().min(2, "Name is required"),
@@ -37,10 +38,16 @@ export function BookingForm() {
 
 function BookingFormContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const tourSlug = searchParams.get("tour") || undefined;
   
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [minDate, setMinDate] = useState("");
+
+  useEffect(() => {
+    setMinDate(new Date().toISOString().split("T")[0]);
+  }, []);
 
   const {
     register,
@@ -48,6 +55,7 @@ function BookingFormContent() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<BookingFormData>({
+    resolver: zodResolver(bookingSchema),
     defaultValues: {
       adults: 1,
       children: 0,
@@ -60,40 +68,19 @@ function BookingFormContent() {
       setSubmitStatus("idle");
       setErrorMessage("");
 
-      const parsed = bookingSchema.safeParse(data);
-      if (!parsed.success) {
-        return;
-      }
-
-      await submitBookingUseCase.execute({
-        ...parsed.data,
+      const result = await submitBookingUseCase.execute({
+        ...data,
         tourSlug,
       } as any);
 
-      setSubmitStatus("success");
       reset();
+      // Redirect to dedicated confirmation page with booking reference
+      router.push(`/booking/success?ref=${result?.id ?? ""}`);
     } catch (error) {
       console.error("Booking submission error:", error);
       setSubmitStatus("error");
       setErrorMessage(error instanceof Error ? error.message : "Failed to submit booking inquiry.");
     }
-  }
-
-  if (submitStatus === "success") {
-    return (
-      <div className="rounded-premium bg-white/10 backdrop-blur-md p-8 border border-white/20 max-w-md w-full text-center text-ivory flex flex-col items-center justify-center min-h-[400px]">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-5 shadow-lg shadow-emerald-500/10">
-          <CheckCircle2 className="h-8 w-8" />
-        </div>
-        <h3 className="font-heading text-2xl font-bold mb-3 text-white">Inquiry Submitted!</h3>
-        <p className="text-sm text-ivory/80 leading-relaxed max-w-sm">
-          Thank you for choosing Safari Luxe. Our luxury safari specialists are reviewing your travel preferences and will contact you within 24 hours.
-        </p>
-        <CTAButton onClick={() => setSubmitStatus("idle")} className="mt-8 px-8 py-3 bg-savannah hover:bg-white text-charcoal text-xs font-bold">
-          Submit Another Inquiry
-        </CTAButton>
-      </div>
-    );
   }
 
   return (
@@ -166,6 +153,7 @@ function BookingFormContent() {
           <input
             {...register("travelDate")}
             type="date"
+            min={minDate}
             className="mt-1 w-full rounded-xl border border-white/20 bg-white/10 px-3.5 py-2.5 text-ivory placeholder:text-ivory/40 backdrop-blur-sm focus:border-savannah focus:outline-none text-sm transition-all"
           />
           {errors.travelDate && (

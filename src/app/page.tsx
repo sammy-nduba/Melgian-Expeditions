@@ -97,30 +97,47 @@ export default async function HomePage() {
         <div className="container-premium grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-savannah">
-              Wildlife Conservation
+              Why Melgian Expeditions
             </p>
 
             <h2 className="mt-3 font-heading text-4xl font-bold md:text-5xl">
-              Protecting Africa&apos;s Natural Heritage
+              Africa&apos;s Most Trusted Luxury Safari Company
             </h2>
 
             <p className="mt-6 text-lg leading-8 text-ivory/80">
-              We believe in giving back to the wild. A portion of every safari booked with us goes directly to local conservation initiatives. You can also join us in protecting endangered species and supporting local communities by making a direct contribution.
+              From our founding guides to our certified conservation partners, every detail of your journey is curated by specialists who live and breathe the African wilderness.
             </p>
 
-            <div className="mt-8">
-              <CTAButton href="/donate" variant="secondary">
-                Make a Contribution
-              </CTAButton>
+            <div className="mt-10 border-t border-white/10 pt-8">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-ivory/40 mb-5">
+                Recognised &amp; Certified By
+              </p>
+              <div className="flex flex-wrap items-center gap-4 md:gap-6">
+                {[
+                  { abbr: "KATO", name: "Kenya Association of Tour Operators", color: "text-savannah" },
+                  { abbr: "KAWS", name: "Kenya Wildlife Service Approved", color: "text-emerald-400" },
+                  { abbr: "TIES", name: "The International Ecotourism Society", color: "text-sky-400" },
+                  { abbr: "Travelife", name: "Travelife Partner", color: "text-amber-400" },
+                  { abbr: "LTSK", name: "Leave No Trace Kenya", color: "text-rose-400" },
+                ].map((cert) => (
+                  <div key={cert.abbr} title={cert.name} className="flex items-center group cursor-default">
+                    <div className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] group-hover:border-savannah/40 group-hover:bg-white/10 transition-all">
+                      <span className={`text-[9px] font-extrabold uppercase tracking-tight leading-tight text-center px-0.5 ${cert.color}`}>
+                        {cert.abbr}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2">
             {[
-              { title: "Anti-Poaching", desc: "Funding local ranger patrols and essential field equipment." },
-              { title: "Habitat Rescue", desc: "Restoring and protecting critical wildlife ecosystems." },
-              { title: "Community Ed.", desc: "Empowering locals through dedicated education programs." },
-              { title: "Wildlife Rehab", desc: "Supporting the rescue and care of injured animals." },
+              { title: "15+ Years Experience", desc: "Designing bespoke safaris for discerning travellers globally." },
+              { title: "Private Expert Guides", desc: "All guides are KPSGA certified — Grade A & B rated." },
+              { title: "Responsible Tourism", desc: "Strict low-impact policies ensuring positive ecosystem contributions." },
+              { title: "Fully Bonded", desc: "Complete financial protection for every booking." },
             ].map((item) => (
               <div
                 key={item.title}
@@ -133,6 +150,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
 
       <section className="section-padding bg-ivory">
         <div className="container-premium">
@@ -156,13 +174,14 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="section-padding bg-charcoal text-ivory">
+      <section className="py-12 md:py-16 bg-charcoal text-ivory">
         <div className="container-premium">
           <SectionHeader
             subtitle="Guest Experiences"
             title="What Our Travelers Say"
             description="Real stories from discerning travelers who have experienced the luxury and authenticity of our safari journeys."
             centered
+            className="mb-8"
           />
 
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

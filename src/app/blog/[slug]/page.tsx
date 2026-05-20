@@ -6,6 +6,8 @@ import { BlogAPIService } from "@/data/services/BlogAPIService";
 import { BlogRepositoryImpl } from "@/data/repositories/BlogRepositoryImpl";
 import { CTAButton } from "@/presentation/components/common/CTAButton";
 
+import ReactMarkdown from "react-markdown";
+
 type BlogDetailPageProps = {
   params: {
     slug: string;
@@ -17,7 +19,8 @@ const blogRepository = new BlogRepositoryImpl(new BlogAPIService());
 export async function generateMetadata({
   params,
 }: BlogDetailPageProps): Promise<Metadata> {
-  const post = await blogRepository.getPostBySlug(params.slug);
+  const resolvedParams = await params;
+  const post = await blogRepository.getPostBySlug(resolvedParams.slug);
 
   if (!post) {
     return {
@@ -38,7 +41,8 @@ export async function generateMetadata({
 }
 
 export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const post = await blogRepository.getPostBySlug(params.slug);
+  const resolvedParams = await params;
+  const post = await blogRepository.getPostBySlug(resolvedParams.slug);
 
   if (!post) {
     notFound();
@@ -73,7 +77,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
                 <span className="flex items-center gap-2">
                   <CalendarDays size={16} />
-                  {new Date(post.publishedAt).toLocaleDateString()}
+                  {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : "Draft"}
                 </span>
 
                 <span className="flex items-center gap-2">
@@ -87,26 +91,8 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
 
         <section className="section-padding">
           <div className="container-premium grid gap-12 lg:grid-cols-[1fr_340px]">
-            <div className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-charcoal prose-p:text-charcoal/75">
-              <p>{post.content}</p>
-
-              <h2>Planning Your Safari Experience</h2>
-
-              <p>
-                A successful luxury safari combines timing, destination
-                knowledge, expert guiding, and carefully chosen accommodation.
-                Travelers should consider wildlife movement, seasonal climate,
-                preferred comfort level, and photographic goals before choosing
-                their itinerary.
-              </p>
-
-              <h2>Final Recommendation</h2>
-
-              <p>
-                Work with experienced safari planners who understand both the
-                destination and your personal travel style. This ensures a
-                smoother, safer, and more meaningful journey.
-              </p>
+            <div className="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-charcoal prose-p:text-charcoal/75 prose-a:text-forest hover:prose-a:text-forest/80">
+              <ReactMarkdown>{post.content}</ReactMarkdown>
             </div>
 
             <aside className="h-fit rounded-premium bg-white p-6 shadow-premium lg:sticky lg:top-28">

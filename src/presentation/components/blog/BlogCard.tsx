@@ -37,7 +37,7 @@ export function BlogCard({ post }: BlogCardProps) {
         <div className="mt-5 flex flex-wrap gap-4 text-xs text-charcoal/50">
           <span className="flex items-center gap-1">
             <CalendarDays size={14} />
-            {new Date(post.publishedAt).toLocaleDateString()}
+            {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString() : "Draft"}
           </span>
 
           <span className="flex items-center gap-1">

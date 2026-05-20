@@ -7,8 +7,11 @@ export interface BlogPost {
   coverImage: string;
   category: string;
   author: string;
-  publishedAt: string;
+  status: "DRAFT" | "PUBLISHED";
+  publishedAt: string | null;
   readingTimeMinutes: number;
   seoTitle?: string;
   seoDescription?: string;
+  isFeatured: boolean;
+  tags: string[];
 }

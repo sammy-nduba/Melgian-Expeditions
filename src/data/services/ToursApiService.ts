@@ -35,9 +35,10 @@ function mapBackendTourToTourPackage(tour: any): TourPackage {
 }
 
 export class ToursAPIService {
-  async getFeaturedTours(): Promise<TourPackage[]> {
+  async getFeaturedTours(region?: string): Promise<TourPackage[]> {
     try {
-      const data = await apiClient<any[]>("/tours?featured=true");
+      const qs = region ? `&region=${region}` : "";
+      const data = await apiClient<any[]>(`/tours?featured=true${qs}`);
       return (data || []).map(mapBackendTourToTourPackage);
     } catch (error) {
       console.error("Failed to fetch featured tours:", error);
@@ -45,9 +46,10 @@ export class ToursAPIService {
     }
   }
 
-  async getAllTours(): Promise<TourPackage[]> {
+  async getAllTours(region?: string): Promise<TourPackage[]> {
     try {
-      const data = await apiClient<any[]>("/tours");
+      const qs = region ? `?region=${region}` : "";
+      const data = await apiClient<any[]>(`/tours${qs}`);
       return (data || []).map(mapBackendTourToTourPackage);
     } catch (error) {
       console.error("Failed to fetch all tours:", error);
@@ -65,9 +67,10 @@ export class ToursAPIService {
     }
   }
 
-  async searchTours(query: string): Promise<TourPackage[]> {
+  async searchTours(query: string, region?: string): Promise<TourPackage[]> {
     try {
-      const data = await apiClient<any[]>(`/tours?q=${encodeURIComponent(query)}`);
+      const qs = region ? `&region=${region}` : "";
+      const data = await apiClient<any[]>(`/tours?q=${encodeURIComponent(query)}${qs}`);
       return (data || []).map(mapBackendTourToTourPackage);
     } catch (error) {
       console.error(`Failed to search tours with query: ${query}`, error);

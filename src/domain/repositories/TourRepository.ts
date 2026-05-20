@@ -1,8 +1,8 @@
 import { TourPackage } from "../entities/TourPackage";
 
 export interface TourRepository {
-  getFeaturedTours(): Promise<TourPackage[]>;
-  getAllTours(): Promise<TourPackage[]>;
+  getFeaturedTours(region?: string): Promise<TourPackage[]>;
+  getAllTours(region?: string): Promise<TourPackage[]>;
   getTourBySlug(slug: string): Promise<TourPackage | null>;
-  searchTours(query: string): Promise<TourPackage[]>;
+  searchTours(query: string, region?: string): Promise<TourPackage[]>;
 }

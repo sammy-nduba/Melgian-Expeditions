@@ -5,19 +5,19 @@ import { ToursAPIService } from "../services/ToursApiService";
 export class TourRepositoryImpl implements TourRepository {
   constructor(private service: ToursAPIService) {}
 
-  getFeaturedTours(): Promise<TourPackage[]> {
-    return this.service.getFeaturedTours();
+  getFeaturedTours(region?: string): Promise<TourPackage[]> {
+    return this.service.getFeaturedTours(region);
   }
 
-  getAllTours(): Promise<TourPackage[]> {
-    return this.service.getAllTours();
+  getAllTours(region?: string): Promise<TourPackage[]> {
+    return this.service.getAllTours(region);
   }
 
   getTourBySlug(slug: string): Promise<TourPackage | null> {
     return this.service.getTourBySlug(slug);
   }
 
-  searchTours(query: string): Promise<TourPackage[]> {
-    return this.service.searchTours(query);
+  searchTours(query: string, region?: string): Promise<TourPackage[]> {
+    return this.service.searchTours(query, region);
   }
 }
