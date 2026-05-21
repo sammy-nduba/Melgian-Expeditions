@@ -5,10 +5,11 @@ const nextConfig = {
     unoptimized: true,
   },
   async rewrites() {
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5000/api';
     return [
       {
         source: '/api/backend/:path*',
-        destination: 'http://127.0.0.1:5000/api/:path*',
+        destination: `${backendUrl}/:path*`,
       },
     ]
   },

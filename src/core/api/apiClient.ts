@@ -1,7 +1,4 @@
-const SERVER_API_URL = "http://127.0.0.1:5000/api";
-const CLIENT_API_URL = "/api/backend";
-const API_URL = typeof window === "undefined" ? SERVER_API_URL : CLIENT_API_URL;
-console.log("Resolved API_URL", API_URL);
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5000/api";
 
 export async function apiClient<T>(
     endpoint: string,
