@@ -5,7 +5,7 @@ const nextConfig = {
     unoptimized: true,
   },
   async rewrites() {
-    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:5000/api';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'https://melgian-api.onrender.com/api';
     return [
       {
         source: '/api/backend/:path*',
