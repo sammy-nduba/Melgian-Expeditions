@@ -29,7 +29,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
+    "build:prod": "mv .env.local .env.local.bak 2>/dev/null; next build --webpack; mv .env.local.bak .env.local 2>/dev/null; true",
     "start": "next start"
   }
 }

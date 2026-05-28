@@ -9,9 +9,9 @@ import { CTAButton } from "@/presentation/components/common/CTAButton";
 import ReactMarkdown from "react-markdown";
 
 type BlogDetailPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 const blogRepository = new BlogRepositoryImpl(new BlogAPIService());
