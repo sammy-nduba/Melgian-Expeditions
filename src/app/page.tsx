@@ -77,8 +77,10 @@ export default async function HomePage() {
               <p className="text-sm font-semibold uppercase tracking-[0.25em] text-bronze">
                 Curated Travel Classes
               </p>
-              <h2 className="mt-3 font-heading text-4xl font-bold text-charcoal md:text-5xl">
-                Featured Safari Classes
+              <h2 className="mt-3 font-heading text-4xl font-bold text-charcoal md:text-5xl leading-tight">
+                Featured{" "}
+                <span className="italic font-semibold text-bronze">Safari</span>{" "}
+                Classes
               </h2>
             </div>
 
@@ -138,7 +140,7 @@ export default async function HomePage() {
             {[
               { title: "15+ Years Experience", desc: "Designing bespoke safaris for discerning travellers globally." },
               { title: "Private Expert Guides", desc: "All guides are KPSGA certified — Grade A & B rated." },
-              { title: "Responsible Tourism", desc: "Strict low-impact policies ensuring positive ecosystem contributions." },
+              { title: "Curated Safari Classes", desc: "Handpicked safari packages tailored to every travel style, from budget to ultra-luxury." },
               { title: "Fully Bonded", desc: "Complete financial protection for every booking." },
             ].map((item) => (
               <div
@@ -216,27 +218,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="section-padding bg-savannah">
-        <div className="container-premium text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="font-heading text-4xl font-bold text-charcoal md:text-5xl">
-              Ready to Begin Your Safari Adventure?
-            </h2>
 
-            <p className="mt-6 text-lg text-charcoal/80">
-              Let our expert team craft your perfect African safari experience.
-              From luxury lodges to private guided tours, we handle every detail.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-              <CTAButton href="/booking">Start Planning</CTAButton>
-              <CTAButton href="/contact" variant="outline">
-                Get in Touch
-              </CTAButton>
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

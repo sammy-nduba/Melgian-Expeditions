@@ -38,8 +38,10 @@ export function CategoryCard({ category, index }: CategoryCardProps) {
           unoptimized
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
-        {/* Dark elegant overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-t ${category.colorClass} via-charcoal/40 to-transparent transition-colors duration-500`} />
+        {/* Base dark layer to kill image bleed-through */}
+        <div className="absolute inset-0 bg-black/55" />
+        {/* Tinted gradient overlay */}
+        <div className={`absolute inset-0 bg-gradient-to-t ${category.colorClass} via-charcoal/50 to-black/30 transition-colors duration-500`} />
       </div>
 
       {/* Card Content */}
@@ -53,8 +55,17 @@ export function CategoryCard({ category, index }: CategoryCardProps) {
             <p className="text-xs font-semibold uppercase tracking-widest text-savannah/90">
               {category.subtitle}
             </p>
-            <h3 className="font-heading text-2xl font-bold tracking-tight text-white mt-0.5">
-              {category.title}
+            <h3 className="font-heading text-2xl font-bold tracking-tight text-white mt-0.5 leading-tight">
+              {(() => {
+                const words = category.title.split(" ");
+                const last = words.pop();
+                return (
+                  <>
+                    {words.join(" ")}{words.length > 0 ? " " : ""}
+                    <span className="italic font-semibold text-amber-300">{last}</span>
+                  </>
+                );
+              })()}
             </h3>
           </div>
         </div>
