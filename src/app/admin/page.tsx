@@ -67,6 +67,7 @@ export default function AdminDashboardPage() {
   const [difficulty, setDifficulty] = useState("EASY");
   const [packageClass, setPackageClass] = useState("EXPLORER_SAFARIS");
   const [availability, setAvailability] = useState("AVAILABLE");
+  const [targetAudience, setTargetAudience] = useState("ALL");
   const [isFeatured, setIsFeatured] = useState(false);
 
   // Dynamic lists states
@@ -602,6 +603,7 @@ export default function AdminDashboardPage() {
         difficulty,
         packageClass,
         availability,
+        targetAudience,
         highlights,
         included,
         excluded,
@@ -625,6 +627,7 @@ export default function AdminDashboardPage() {
       setDestinationName("");
       setDurationDays(1);
       setPriceFrom(1000);
+      setTargetAudience("ALL");
       setHighlights([]);
       setIncluded([]);
       setExcluded([]);
@@ -1163,7 +1166,7 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
 
-                  <div className="grid gap-5 sm:grid-cols-2">
+                  <div className="grid gap-5 sm:grid-cols-3">
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-ivory/80 mb-2">
                         Safari Package Class
@@ -1176,6 +1179,21 @@ export default function AdminDashboardPage() {
                         <option value="ADVENTURE_TRAILS">Adventure Trails</option>
                         <option value="EXPLORER_SAFARIS">Explorer Safaris</option>
                         <option value="SIGNATURE_ELITE_SAFARIS">Signature Elite Safaris</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-ivory/80 mb-2">
+                        Target Audience
+                      </label>
+                      <select
+                        value={targetAudience}
+                        onChange={(e) => setTargetAudience(e.target.value)}
+                        className="w-full rounded-xl border border-white/10 bg-charcoal px-4 py-3 text-white focus:border-savannah focus:outline-none focus:ring-1 focus:ring-savannah/40 text-sm transition-all cursor-pointer"
+                      >
+                        <option value="ALL">All Travelers (Default)</option>
+                        <option value="LOCAL">Kenyans / Residents Only</option>
+                        <option value="INTERNATIONAL">International Travelers Only</option>
                       </select>
                     </div>
 

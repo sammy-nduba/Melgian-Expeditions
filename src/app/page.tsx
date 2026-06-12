@@ -9,7 +9,7 @@ import { BookingForm } from "@/presentation/components/booking/BookingForm";
 import { DestinationAPIService } from "@/data/services/DestinationAPIService";
 import { TestimonialsAPIService } from "@/data/services/TestimonialsAPIService";
 import { BlogAPIService } from "@/data/services/BlogAPIService";
-import Image from "next/image";
+import { HeroSlider } from "@/presentation/components/home/HeroSlider";
 
 export const dynamic = 'force-dynamic';
 
@@ -26,24 +26,15 @@ export default async function HomePage() {
   return (
     <>
       <section className="relative min-h-[calc(90vh-80px)] overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero/safari-hero.jpg"
-            alt="Luxury safari landscape"
-            fill
-            priority
-            unoptimized
-            className="object-cover"
-          />
-        </div>
+        <HeroSlider />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 to-transparent pointer-events-none z-0" />
 
         <div className="container-premium relative z-10 flex min-h-[calc(90vh-80px)] items-center">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center w-full">
             <div className="max-w-3xl text-ivory">
               <p className="mb-5 text-sm font-semibold uppercase tracking-[0.3em] text-savannah">
-                Explore Beyond. Experience More.
+                Explore More. Experience Beyond.
               </p>
 
               <h1 className="font-heading text-5xl font-bold leading-tight md:text-7xl">
@@ -51,7 +42,7 @@ export default async function HomePage() {
               </h1>
 
               <p className="mt-6 max-w-2xl text-lg leading-8 text-ivory/80">
-                Bespoke safari journeys, handpicked lodges, expert guides, and
+                Bespoke safari journeys, breath taking coastal experiences, handpicked lodges, expert guides, and
                 unforgettable wildlife encounters crafted for discerning travelers.
               </p>
 

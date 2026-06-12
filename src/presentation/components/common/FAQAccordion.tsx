@@ -46,7 +46,7 @@ export function FAQAccordion({ items }: FAQAccordionProps) {
             </button>
 
             {isActive && (
-              <div className="px-5 pb-5 text-sm leading-6 text-charcoal/70">
+              <div className="px-5 pb-5 text-sm leading-6 text-charcoal/70 whitespace-pre-wrap">
                 {item.answer}
               </div>
             )}

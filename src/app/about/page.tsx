@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Metadata } from "next";
-import { CheckCircle } from "lucide-react";
+import { Map, Compass, Users, Star, Leaf } from "lucide-react";
 import { CTAButton } from "@/presentation/components/common/CTAButton";
 
 export const metadata: Metadata = {
@@ -9,78 +9,75 @@ export const metadata: Metadata = {
     "Learn about Melgian Expeditions, our expert guides, values, and commitment to premium African travel experiences.",
 };
 
-const values = [
-  "Authentic safari expertise",
-  "Premium hospitality standards",
-  "Responsible tourism values",
-  "Personalized itinerary design",
+const differences = [
+  {
+    title: "Authentic Experiences",
+    description: "We take you beyond sightseeing, offering genuine encounters with local communities, wildlife, and cultures that leave lasting impressions.",
+    icon: Compass,
+  },
+  {
+    title: "Tailor-Made Adventures",
+    description: "Every traveler is unique. That's why we design customized itineraries that match your interests, travel style, budget, and pace.",
+    icon: Map,
+  },
+  {
+    title: "Expert Local Guides",
+    description: "Our knowledgeable guides bring every destination to life through their passion, experience, and deep understanding of the region.",
+    icon: Users,
+  },
+  {
+    title: "Commitment to Excellence",
+    description: "From your first inquiry to your final farewell, we are dedicated to providing exceptional service, attention to detail, and unforgettable moments.",
+    icon: Star,
+  },
+  {
+    title: "Responsible Tourism",
+    description: "We believe in protecting the environments and communities that make our destinations special. Our tours promote sustainable travel practices that support conservation and local livelihoods.",
+    icon: Leaf,
+  },
 ];
 
 export default function AboutPage() {
   return (
     <main>
-      <section className="relative min-h-[60vh] overflow-hidden">
+      {/* Hero Section - About Melgian Expeditions */}
+      <section className="relative min-h-[70vh] overflow-hidden">
         <Image
           src="/images/about/about-safari.jpg"
-          alt="Safari guide overlooking wildlife plains"
+          alt="People enjoying a safari breakfast next to a land cruiser"
           fill
           priority
           className="object-cover"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/70 to-transparent" />
 
-        <div className="container-premium relative z-10 flex min-h-[60vh] items-end pb-16 text-ivory">
-          <div className="max-w-3xl">
+        <div className="container-premium relative z-10 flex min-h-[70vh] items-center py-20 text-ivory">
+          <div className="max-w-3xl mt-12">
             <p className="text-sm font-semibold uppercase tracking-[0.25em] text-savannah">
-              About Us
+              About Melgian Expeditions
             </p>
 
             <h1 className="mt-4 font-heading text-5xl font-bold md:text-7xl">
-              Luxury Safari Planning With Purpose
+              Explore more experience beyond
             </h1>
 
-            <p className="mt-5 text-lg leading-8 text-ivory/80">
-              We design premium safari journeys that combine comfort,
-              authenticity, safety, and unforgettable wildlife encounters.
-            </p>
+            <div className="mt-6 space-y-6 text-lg leading-8 text-ivory/80">
+              <p>
+                At Melgian Expeditions, we believe that travel is more than visiting destinations, it is about creating unforgettable memories, experiencing authentic cultures, and connecting with the wild beauty of Africa.
+              </p>
+              <p>
+                Founded with a passion for adventure and a deep love for East Africa's breathtaking landscapes, Melgian Expeditions specializes in crafting exceptional safari experiences, unforgettable beach experience, amazing cultural encounters, and tailor-made journeys designed around your dreams. Whether you are witnessing the Great Migration across the Maasai Mara, conquering the heights of Mount Kenya and Kilimanjaro, exploring the breathtaking coastal beaches of Kenya, or immersing yourself in local traditions, every expedition is carefully designed to deliver a once-in-a-lifetime experience.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="section-padding">
+      {/* Our Story */}
+      <section className="section-padding bg-sand">
         <div className="container-premium grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-bronze">
-              Our Story
-            </p>
-
-            <h2 className="mt-3 font-heading text-4xl font-bold md:text-5xl">
-              Crafted for Travelers Who Expect More
-            </h2>
-
-            <p className="mt-6 text-lg leading-8 text-charcoal/75">
-              Melgian Expeditions was created for travelers seeking immersive wildlife
-              journeys without compromising comfort, service, or trust. Every
-              itinerary is thoughtfully designed with expert guides, exceptional
-              lodges, and seamless support from inquiry to return.
-            </p>
-
-            <div className="mt-8 grid gap-4">
-              {values.map((value) => (
-                <div key={value} className="flex gap-3">
-                  <CheckCircle className="mt-1 text-forest" size={20} />
-                  <p className="text-charcoal/75">{value}</p>
-                </div>
-              ))}
-            </div>
-
-            <CTAButton href="/booking" className="mt-8">
-              Plan Your Safari
-            </CTAButton>
-          </div>
-
-          <div className="relative h-[520px] overflow-hidden rounded-premium shadow-premium">
+          <div className="relative h-[600px] overflow-hidden rounded-premium shadow-premium order-last lg:order-first">
             <Image
               src="/images/about/luxury-lodge.jpg"
               alt="Luxury safari lodge"
@@ -88,24 +85,79 @@ export default function AboutPage() {
               className="object-cover"
             />
           </div>
+          
+          <div>
+            <h2 className="font-heading text-4xl font-bold md:text-5xl text-charcoal">
+              Our Story
+            </h2>
+
+            <div className="mt-6 space-y-6 text-lg leading-8 text-charcoal/75">
+              <p>
+                Melgian Expeditions was born from a vision to share the magic of Africa with travelers from around the world. As a locally inspired and professionally managed tour company, we combine extensive destination knowledge with personalized service to ensure every journey is meaningful, seamless, and memorable.
+              </p>
+              <p>
+                Our team consists of experienced travel specialists, passionate guides, and adventure experts who know Africa not just as a destination, but as home. This local expertise allows us to create authentic experiences that go beyond the typical tourist trail, bringing you closer to the people, wildlife, and natural wonders that make Africa truly extraordinary.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="bg-forest py-20 text-ivory">
-        <div className="container-premium grid gap-8 md:grid-cols-4">
-          {[
-            ["15+", "Years Experience"],
-            ["40+", "Safari Partners"],
-            ["2,500+", "Happy Travelers"],
-            ["98%", "Guest Satisfaction"],
-          ].map(([number, label]) => (
-            <div key={label}>
-              <p className="font-heading text-5xl font-bold text-savannah">
-                {number}
-              </p>
-              <p className="mt-2 text-ivory/70">{label}</p>
-            </div>
-          ))}
+      {/* What Makes Us Different */}
+      <section className="section-padding bg-ivory">
+        <div className="container-premium">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="font-heading text-4xl font-bold md:text-5xl text-charcoal">
+              What Makes Us Different
+            </h2>
+          </div>
+
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {differences.map((diff, index) => (
+              <div key={index} className="bg-white p-8 rounded-premium shadow-sm border border-sand hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-savannah/20 flex items-center justify-center mb-6 text-bronze">
+                  <diff.icon size={24} />
+                </div>
+                <h3 className="font-heading text-xl font-bold text-charcoal mb-4">{diff.title}</h3>
+                <p className="text-charcoal/75 leading-relaxed">{diff.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Our Mission */}
+      <section className="bg-forest py-24 text-ivory text-center">
+        <div className="container-premium max-w-4xl">
+          <h2 className="font-heading text-4xl font-bold md:text-5xl text-ivory mb-6">
+            Our Mission
+          </h2>
+          <p className="font-heading text-2xl md:text-3xl leading-relaxed font-light">
+            To create life-changing travel experiences that inspire adventure, foster cultural understanding, and showcase the extraordinary beauty of Africa while supporting local communities and preserving natural heritage for future generations.
+          </p>
+        </div>
+      </section>
+
+      {/* Your Journey Starts Here */}
+      <section className="section-padding bg-sand">
+        <div className="container-premium text-center max-w-3xl mx-auto">
+          <h2 className="font-heading text-4xl font-bold md:text-5xl text-charcoal mb-6">
+            Your Journey Starts Here
+          </h2>
+          <div className="space-y-6 text-lg leading-8 text-charcoal/75 mb-10">
+            <p>
+              Whether you're seeking thrilling wildlife safaris, mountain expeditions, family vacations, luxury escapes, cultural discoveries, chilled beach experiences, or customized group adventures, Melgian Expeditions is your trusted partner in exploring Africa.
+            </p>
+            <p>
+              Join us and experience the spirit of adventure, the warmth of African hospitality, and the beauty of journeys that stay with you forever.
+            </p>
+            <p className="font-semibold text-charcoal italic mt-8 text-xl">
+              Melgian Expeditions — Where Every Journey Becomes a Story Worth Telling.
+            </p>
+          </div>
+          <CTAButton href="/booking" className="mt-4">
+            Start Your Journey
+          </CTAButton>
         </div>
       </section>
     </main>

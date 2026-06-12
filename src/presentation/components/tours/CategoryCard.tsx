@@ -92,6 +92,15 @@ export function CategoryCard({ category, index }: CategoryCardProps) {
           </ul>
         </div>
 
+        {/* Perfect For */}
+        {category.perfectFor && (
+          <div className="mb-6 bg-white/5 p-3 rounded-lg border border-white/10">
+            <p className="text-xs text-ivory/90 leading-relaxed">
+              <strong className="text-savannah">Perfect For:</strong> {category.perfectFor}
+            </p>
+          </div>
+        )}
+
         {/* Action / Pricing footer */}
         <div className="border-t border-white/10 pt-5 flex items-center justify-between mt-auto">
           <div>
